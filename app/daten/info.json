@@ -1,0 +1,24 @@
+{
+  "gebiet": "Igls und Innsbruck (Testgebiet)",
+  "grenzen": {
+    "west": 11.3,
+    "south": 47.18,
+    "east": 11.52,
+    "north": 47.33
+  },
+  "karte": {
+    "datei": "karte-igls-innsbruck.pmtiles",
+    "groesseMB": 9.1,
+    "maxzoom": 15,
+    "protomapsLauf": "20261111",
+    "osmStand": "2026-11-11T04:00:00Z",
+    "quelle": "OpenStreetMap-Mitwirkende (ODbL) über Protomaps-Basemap"
+  },
+  "hoehen": {
+    "quelle": "Digitales Geländemodell Tirol (DGM 5 m), Datenquelle: Land Tirol - data.tirol.gv.at, CC BY 4.0",
+    "rasterM": 5.0,
+    "stand": "abgerufen 2026-11-12",
+    "groesseMB": 22.2
+  },
+  "erzeugt": "2026-11-12"
+}

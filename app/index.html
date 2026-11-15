@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Löschwasserförderung</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1e66c8">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stage">
+  <div class="banner">Planungshilfe, ersetzt nicht die Entscheidung des Einsatzleiters. Im Einsatz erst nach Freigabe durch den Kommandanten verwenden.</div>
+  <div class="phone">
+    <header>
+      <button class="iconbtn back" id="back" aria-label="Zurück" style="visibility:hidden">‹</button>
+      <h1 id="title">Wasserförderung</h1>
+      <button class="iconbtn" id="theme" aria-label="Tag oder Nacht">Tag</button>
+    </header>
+    <div class="status"><span id="statusText">Daten 11.11.2026</span></div>
+    <div class="offline" role="status">
+      <span id="offlineStatus">Offline-Status wird geprüft …</span>
+      <span class="hint" id="offlineHinweis"></span>
+      <button class="btn primary" id="updateKnopf" hidden>Neue Version bereit: jetzt laden</button>
+    </div>
+
+    <main>
+      <!-- Start -->
+      <section class="screen on" id="s-start">
+        <div class="seg" id="modus"><button data-m="einsatz">Einsatz</button><button data-m="training">Training</button></div>
+        <span class="hint" id="modusHinweis"></span>
+        <button class="btn primary" data-go="s-wasser">Neue Planung<small>Strahlrohre, Weg, Ergebnis</small></button>
+        <button class="btn" data-go="s-listen">Fahrzeuge der Feuerwehr<small id="startListeText">–</small></button>
+        <button class="btn" data-go="s-pumpe" id="startPumpeBtn" style="display:none">Pumpen frei wählen<small id="startPumpe">keine gewählt</small></button>
+        <button class="btn" data-go="s-info">Info und Rechtliches<small>Quellen, Datenschutz, Impressum, Haftung</small></button>
+        <p class="legal">Planungshilfe. Ersetzt nicht die Entscheidung des Einsatzleiters. Im Einsatz erst nach Freigabe durch den Kommandanten verwenden. Berechnet wird nur die Förderleitung mit B-Schläuchen (75 mm).</p>
+      </section>
+
+      <!-- 1 Wasserbedarf -->
+      <section class="screen" id="s-wasser">
+        <label class="lbl">1 von 3 · Wasserbedarf am Brandort</label>
+        <div id="rohre" class="tiles"></div>
+        <div id="geraeteWahl" class="tiles"></div>
+        <div class="card">
+          <div class="row"><b style="font-size:20px">Eigenes Gerät</b>
+            <div class="stepper" id="eigenStepper"><button aria-label="weniger">−</button><span id="eigenAnzahl">0</span><button aria-label="mehr">+</button></div></div>
+          <span class="hint">Zum Beispiel Hohlstrahlrohr oder Hydroschild: Liter pro Minute und Druck selbst eintragen.</span>
+          <div class="two">
+            <div class="field"><label class="lbl" for="eigenQ">Liter/min je Stück</label><input id="eigenQ" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 200"></div>
+            <div class="field"><label class="lbl" for="eigenBar">Druck in bar</label><input id="eigenBar" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 6"></div>
+          </div>
+        </div>
+        <div class="card"><div class="row"><span style="font-size:18px">Gesamtbedarf</span><b class="sum" id="summeQ">0 l/min</b></div>
+          <span class="hint" id="summeBar">Druck am Verteiler: noch kein Strahlrohr gewählt</span></div>
+      </section>
+
+      <!-- 2 Weg -->
+      <section class="screen" id="s-weg">
+        <label class="lbl">2 von 3 · Weg</label>
+        <div class="card" id="karteKarte">
+          <label class="lbl">Karte (Igls und Innsbruck, ohne Internet)</label>
+          <div id="karte" class="karte" aria-label="Karte"></div>
+          <div class="fehler" id="karteFehler" style="display:none"></div>
+        </div>
+        <div class="card" id="wegInfo">
+          <div class="kpi">
+            <div><b id="wegLaenge">–</b><span>Länge des Wegs</span></div>
+            <div><b id="wegHoehe">–</b><span>Höhenunterschied</span></div>
+          </div>
+          <span class="hint" id="wegHinweis"></span>
+          <button class="btn" id="wegStandort">Mein Standort anzeigen</button>
+          <span class="hint" id="standortText" role="status">Der Standort bleibt auf diesem Gerät und wird nicht gespeichert.</span>
+          <div id="wegProfilBox" style="display:none"><label class="lbl">Höhenprofil (über Adria)</label><div id="wegProfil"></div></div>
+          <div class="note" id="wegProfilHinweis" role="note" style="display:none"><b>Höhenprofil wird mitgerechnet</b><span>Beim Übernehmen rechnet die App mit diesem Höhenprofil: Pumpenstandorte und Druck nach der tatsächlichen Höhe, nicht nach einer geraden Steigung.</span></div>
+          <div class="fehler" id="wegVeraltet" role="alert" style="display:none"></div>
+          <div class="two">
+            <button class="btn" id="wegZurueck">Letzter Punkt zurück</button>
+            <button class="btn" id="wegLoeschen">Weg löschen</button>
+          </div>
+          <button class="btn primary" id="wegUebernehmen">Weg übernehmen</button>
+          <span class="hint" id="wegUebernommen" role="status"></span>
+          <span class="hint">Zeichne vom Wasser (Start, Wasserentnahme) zum Brandort (Ziel): die Richtung zählt für die Höhe. Du zeichnest den Weg von Hand, Punkt für Punkt. Die App rastet nicht auf Straßen ein. Punkte lassen sich mit dem Finger verschieben. Die Länge ist die Summe der geraden Stücke zwischen den Punkten.</span>
+        </div>
+        <div class="card">
+          <div class="field"><label class="lbl" for="laenge">Weglänge in Metern (Naturmaß)</label>
+            <input id="laenge" type="text" inputmode="decimal" autocomplete="off" placeholder="z. B. 1000"></div>
+          <div class="field"><label class="lbl" for="hoehe">Höhenunterschied in Metern</label>
+            <input id="hoehe" type="text" inputmode="decimal" autocomplete="off" placeholder="0"></div>
+          <span class="hint">Steigung (bergauf) mit Plus, Gefälle (bergab) mit Minus, zum Beispiel -20. Die Höhe gilt vom Beginn bis zum Ende des Wegs.</span>
+        </div>
+        <div class="card">
+          <div class="field"><label class="lbl" for="saug">Saughöhe an der Wasserentnahme in Metern</label>
+            <input id="saug" type="text" inputmode="decimal" autocomplete="off" placeholder="3"></div>
+          <span class="hint">Gilt nur für die erste Pumpe an der Wasserentnahme. Tabelle bis 7,5 m.</span>
+        </div>
+        <p class="hint">Die Karte zum Einzeichnen des Wegs kommt in einem späteren Schritt. Bis dahin Länge und Höhe von Hand eintragen.</p>
+      </section>
+
+      <!-- Pumpen -->
+      <section class="screen" id="s-pumpe">
+        <label class="lbl">Pumpen wählen: Anzahl je Pumpe</label>
+        <span class="hint">Es dürfen verschiedene Pumpen gemischt werden. Die stärkste Pumpe kommt an die Wasserentnahme.</span>
+        <div class="tiles" id="pumpen"></div>
+        <button class="btn primary" id="pumpeFertig">Fertig<small>Auswahl merken</small></button>
+      </section>
+
+      <!-- Feuerwehr mit Fahrzeugen -->
+      <section class="screen" id="s-listen">
+        <div class="card">
+          <div class="field"><label class="lbl" for="ffName">Name der Feuerwehr</label>
+            <input id="ffName" type="text" autocomplete="off" placeholder="z. B. FF Igls"></div>
+        </div>
+        <label class="lbl">Fahrzeuge · angehakte rücken aus, ihr Material zählt</label>
+        <div id="fahrzeugListe" style="display:flex;flex-direction:column;gap:12px"></div>
+        <button class="btn" id="fahrzeugNeu">+ Neues Fahrzeug<small>mit Pumpen und B-Schläuchen</small></button>
+        <button class="btn primary" id="listenFertig">Fertig</button>
+      </section>
+
+      <!-- Fahrzeug bearbeiten: Abschnitte -->
+      <section class="screen" id="s-bestand">
+        <label class="lbl">Ausrüstung eines Fahrzeugs · bleibt auf dem Gerät gespeichert</label>
+        <div class="card">
+          <div class="field"><label class="lbl" for="fzName">Name des Fahrzeugs</label>
+            <input id="fzName" type="text" autocomplete="off" placeholder="z. B. TLF Igls"></div>
+        </div>
+        <details class="card abschnitt" id="abPumpen" open>
+          <summary id="sumPumpen">Pumpen</summary>
+          <div id="listenPumpen" class="tiles" style="margin-top:12px"></div>
+        </details>
+        <details class="card abschnitt" id="abSchlauch">
+          <summary id="sumSchlauch">B-Schläuche</summary>
+          <div class="row" style="margin-top:12px"><span style="font-size:19px"><b>B-Schläuche</b><br><span class="hint">je 20 m, Stück (leer lassen = nicht prüfen)</span></span>
+            <div class="stepper" id="bSteller"><button aria-label="weniger">−</button><span id="bAnzahl">–</span><button aria-label="mehr">+</button></div></div>
+        </details>
+        <details class="card abschnitt" id="abRohre">
+          <summary id="sumRohre">Strahlrohre</summary>
+          <div id="fzRohre" style="display:flex;flex-direction:column;gap:14px;margin-top:12px"></div>
+        </details>
+        <details class="card abschnitt" id="abGeraete">
+          <summary id="sumGeraete">Geräte</summary>
+          <span class="hint" style="display:block;margin-top:10px">Zum Beispiel Hohlstrahlrohr oder Hydroschild: Liter pro Minute und Druck selbst eintragen.</span>
+          <div id="fzGeraete" style="display:flex;flex-direction:column;gap:14px;margin-top:12px"></div>
+          <button class="btn" id="geraetNeu" style="margin-top:12px;min-height:64px;font-size:18px">+ Gerät hinzufügen</button>
+        </details>
+        <button class="btn primary" id="bestandFertig">Fertig<small>Fahrzeug speichern</small></button>
+        <button class="btn" id="fahrzeugLoeschen">Fahrzeug löschen<small>fragt vorher noch einmal nach</small></button>
+      </section>
+
+      <!-- 3 Ergebnis -->
+      <section class="screen" id="s-ergebnis">
+        <label class="lbl">3 von 3 · Ergebnis</label>
+        <div id="verdict" class="verdict">…</div>
+        <span class="tag" id="trainingTag" style="display:none">TRAINING · Material frei gewählt</span>
+        <div id="gruendeBox" class="fehler" style="display:none"><ul class="gruende" id="gruende"></ul></div>
+        <div id="tippsBox" class="note" role="note" style="display:none"><b>Was sich ändern lässt</b><ul class="gruende" id="tipps"></ul></div>
+        <div class="card" id="aendern"><label class="lbl">Ändern: direkt dorthin springen</label>
+          <div id="aendernInhalt" style="display:flex;flex-direction:column;gap:12px"></div></div>
+        <div class="kpi" id="kpi"></div>
+        <div class="note" role="note">
+          <b>ⓘ Hinweis zum Schlauchbedarf</b>
+          <span>Gerechnet nach der Merkregel der Landesfeuerwehrschule Tirol: <b>6 B-Schläuche je 100 m Naturmaß</b> (120 m Schlauch). Das deckt den Mehrbedarf im Gelände ab. Reibungsverlust und Pumpenabstand werden auf die tatsächliche Schlauchlänge gerechnet.</span>
+        </div>
+        <div class="note" id="profilGenutztErgebnis" role="note" style="display:none"><b>ⓘ Höhenprofil</b><span>Gerechnet mit dem Höhenprofil des eingezeichneten Wegs (Start = Wasserentnahme, Ziel = Brandort). Die Pumpenstandorte richten sich nach der Höhe am Weg.</span></div>
+        <div class="fehler" id="wegWarnErgebnis" role="alert" style="display:none"></div>
+        <div class="fehler" id="wegVeraltetErgebnis" role="alert" style="display:none"></div>
+        <div class="fehler" id="hoeheOffenErgebnis" role="alert" style="display:none"></div>
+        <div class="note" role="note" id="faktorHinweisBox" style="display:none"><b>ⓘ Weglänge von der Karte</b><span id="faktorHinweis"></span></div>
+        <div id="standorteBox"><label class="lbl">Pumpenstandorte (Weg ab Wasserentnahme)</label><ul class="list" id="standorte"></ul></div>
+        <p class="legal" id="annahmen"></p>
+      </section>
+
+      <!-- Info und Rechtliches -->
+      <section class="screen" id="s-info">
+        <div class="card">
+          <label class="lbl">Version und Datenstand</label>
+          <span id="infoVersion">Version: Entwicklungsstand (kein Offline-Paket)</span>
+          <span class="hint">Karte: OpenStreetMap-Daten, Kartenstand 11.11.2026, Gebiet Igls und Innsbruck. Höhendaten: abgerufen am 12.11.2026, Raster 5 m.</span>
+        </div>
+        <div class="card">
+          <label class="lbl">Quellen und Lizenzen</label>
+          <ul class="gruende">
+            <li><b>Kartendaten:</b> © OpenStreetMap-Mitwirkende, Lizenz ODbL, aufbereitet als Protomaps-Basemap.</li>
+            <li><b>Höhendaten:</b> Digitales Geländemodell Tirol (DGM 5 m), Datenquelle: Land Tirol - data.tirol.gv.at, Lizenz CC BY 4.0 (bearbeitet: Ausschnitt, umgerechnet).</li>
+            <li><b>Kartenanzeige:</b> MapLibre GL JS (BSD-3-Clause), pmtiles und @protomaps/basemaps (BSD-3-Clause).</li>
+            <li><b>Schriften:</b> Noto Sans, SIL Open Font License (OFL).</li>
+            <li><b>Kartensymbole:</b> Protomaps basemaps-assets, abgeleitet von tangrams/icons (MIT).</li>
+          </ul>
+          <span class="hint">Die Lizenztexte liegen im Ordner vendor der App. Die App lädt keine Inhalte von fremden Servern nach.</span>
+        </div>
+        <div class="card">
+          <label class="lbl">Datenschutz</label>
+          <span>Alle Eingaben (Fahrzeuge, Planung, Einstellungen) bleiben auf dem Gerät gespeichert. Deine Eingaben und dein Standort werden nie gesendet.</span>
+          <span>Der Standort wird nur zum Anzeigen auf der Karte verwendet und nie gespeichert.</span>
+          <span>Mit Internet fragt die App bei GitHub (USA) nach einer neuen Version: beim Öffnen, beim Zurückkehren in die App und beim Wechsel der Seite. GitHub sieht dabei deine IP-Adresse und speichert Zugriffe in eigenen Protokollen (auch beim Laden der App von der Webadresse). Darauf hat die App keinen Einfluss. Im Offline-Betrieb gibt es keinen Zugriff.</span>
+          <span>Verantwortlicher: Michael Lerch, Am Bichl 28, 6080 Igls, E-Mail: lerchmki@gmail.com</span>
+          <span>Rechtsgrundlage für den Abruf der App und der Update-Prüfung ist das berechtigte Interesse an einem sicheren und aktuellen Betrieb der App (Art. 6 Abs. 1 lit. f DSGVO). Empfänger der IP-Adresse ist GitHub Inc. (USA, Drittland). Der Verantwortliche selbst speichert keine personenbezogenen Daten von Besuchern. Die Speicherdauer der Zugriffsprotokolle bestimmt GitHub.</span>
+          <span>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch und Datenübertragbarkeit (Art. 15 bis 21 DSGVO). Schreibe dazu an die oben genannte E-Mail-Adresse. Beschwerden kannst du bei der Datenschutzbehörde einreichen (dsb.gv.at).</span>
+        </div>
+        <div class="card">
+          <label class="lbl">Impressum</label>
+          <span>Betreiber: Michael Lerch</span>
+          <span>Anschrift: Am Bichl 28, 6080 Igls</span>
+          <span>Kontakt: E-Mail: lerchmki@gmail.com</span>
+        </div>
+        <div class="card">
+          <label class="lbl">Haftung</label>
+          <span>Planungshilfe. Ersetzt nicht die Entscheidung des Einsatzleiters. Im Einsatz erst nach Freigabe durch den Kommandanten verwenden. Berechnet wird nur die Förderleitung mit B-Schläuchen (75 mm). Alle Angaben ohne Gewähr.</span>
+        </div>
+      </section>
+    </main>
+
+    <div class="bottom" id="bottom" style="display:none">
+      <button class="btn" id="prev">Zurück</button>
+      <button class="btn primary" id="next">Weiter</button>
+    </div>
+  </div>
+</div>
+<script src="vendor/maplibre-gl.js"></script>
+<script src="vendor/pmtiles.js"></script>
+<script src="vendor/basemaps.js"></script>
+<script src="js/offline-hilfen.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

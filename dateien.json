@@ -1,0 +1,251 @@
+{
+ "version": "22530c2cb0ea",
+ "gebaut": "2026-11-15T08:15:34+00:00",
+ "dateien": [
+  {
+   "pfad": "app/daten/hoehen.bin",
+   "groesse": 22171028,
+   "sha256": "c2446ae490cdd1dad88279524eb59546ecc42ef2ab105bf76a7962dc4668bc74"
+  },
+  {
+   "pfad": "app/daten/hoehen.json",
+   "groesse": 325,
+   "sha256": "fd4d6b6a7643da260203516aefc75a7a0448ef9b84f9e824a71bdb51b7857657"
+  },
+  {
+   "pfad": "app/daten/info.json",
+   "groesse": 658,
+   "sha256": "f1220fa341611ab66c16fb34cab42083d197d44c2d40ea4186468b1db4e2e14a"
+  },
+  {
+   "pfad": "app/daten/karte-igls-innsbruck.pmtiles",
+   "groesse": 9110257,
+   "sha256": "7a888b93d535ab8bb0121abfb7867459dcbe94b8effcbdaac05a16c773c2515f"
+  },
+  {
+   "pfad": "app/index.html",
+   "groesse": 16357,
+   "sha256": "0f9abfdc7ad238f08f187adb46d0aec486e5e1911834ce050b23459525dde4d3"
+  },
+  {
+   "pfad": "app/js/app.js",
+   "groesse": 34825,
+   "sha256": "b2db87c03c841e64687efd097d471200401d6bcf921fcf6e8cbbf01effbf42c7"
+  },
+  {
+   "pfad": "app/js/berechnung.js",
+   "groesse": 15256,
+   "sha256": "abbd28436c18f0853142c7c17d6ff9d22dd2c94f45b0759a555a4fd9cb0a2671"
+  },
+  {
+   "pfad": "app/js/hoehen.js",
+   "groesse": 3222,
+   "sha256": "10a26d5746ef5fdcbcbd87224ee897d053a06606554a6ddc76a05a47385dbe09"
+  },
+  {
+   "pfad": "app/js/karte.js",
+   "groesse": 3508,
+   "sha256": "89160c563308be59468c7426eeea3bc20e89a50212cbd2ff496a861365282210"
+  },
+  {
+   "pfad": "app/js/offline-hilfen.js",
+   "groesse": 6678,
+   "sha256": "9ee12246c5e5692e22d907a1eba07a7e322dea889fc2544875a1a8a08ace0590"
+  },
+  {
+   "pfad": "app/js/offline.js",
+   "groesse": 8029,
+   "sha256": "cf800486770084f65f1e40989b7aaafa8418be552d50baed635149cd61d4a028"
+  },
+  {
+   "pfad": "app/js/pumpen.js",
+   "groesse": 1678,
+   "sha256": "ef97405fe4859a220184df376983823bac62a64091f5debc7c2839e28e771ab3"
+  },
+  {
+   "pfad": "app/js/standort.js",
+   "groesse": 1741,
+   "sha256": "a025003a1bc9deb3e3c20d3e1a3474c9d490184915451ca1d8a251a81a1ea4b5"
+  },
+  {
+   "pfad": "app/js/weg.js",
+   "groesse": 9325,
+   "sha256": "969710b7772f47b350e68de11100ba037899b137e3146e0dcefa8f633ea50dea"
+  },
+  {
+   "pfad": "app/js/wegkarte.js",
+   "groesse": 12524,
+   "sha256": "53842272fca118af28f01565a1f19d3100e63cb6f105de6fd1fbd6955ca2e695"
+  },
+  {
+   "pfad": "app/style.css",
+   "groesse": 10075,
+   "sha256": "7aafb94636cb0b5b5ef74f2efd912bf4cacf21433c705d5b288079c92e15cf8c"
+  },
+  {
+   "pfad": "app/vendor/LICENSE-basemaps-assets.md",
+   "groesse": 1420,
+   "sha256": "0642fa83cf4315e564439a3fc461ef21303d54ce1f981cbae71a90bd46cc1ce0"
+  },
+  {
+   "pfad": "app/vendor/LICENSE-fonts-OFL.txt",
+   "groesse": 4374,
+   "sha256": "7713cfc8e3c36d5ec4aa3d6cffe7500a1b3310f8a86d914b8ea09c2a9dee7c2d"
+  },
+  {
+   "pfad": "app/vendor/LICENSE-maplibre-gl.txt",
+   "groesse": 5984,
+   "sha256": "ee5fc05a0677eaf69601d2c7db0d9ecd6cc27c3abc1d0733bc9ed34707cf8ef2"
+  },
+  {
+   "pfad": "app/vendor/LIZENZEN.md",
+   "groesse": 1353,
+   "sha256": "a66eb2e88fb91b7afb949f6e0740de057fec5c754f78e410199171ea9705a1e8"
+  },
+  {
+   "pfad": "app/vendor/basemaps.js",
+   "groesse": 38680,
+   "sha256": "551864f01da1bfe3005e99987197f22f56d0c35f9a10fa1727a889e2434af16d"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Italic/0-255.pbf",
+   "groesse": 79344,
+   "sha256": "43edfca91c285ba1226f09d5e74d68e1473a088c517f02a5212ff6ccb10037dc"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Italic/256-511.pbf",
+   "groesse": 132976,
+   "sha256": "a6f9f6574c86a4a28aba630ca1017857ceadd2370ed32a1293c35f819ab9bd60"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Italic/8192-8447.pbf",
+   "groesse": 52891,
+   "sha256": "5dc4e6680116fef01be024e272859d130262613c7e634409a590e5d50ad124ae"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Medium/0-255.pbf",
+   "groesse": 77628,
+   "sha256": "ba2f0118dd024e3041b158e5f9eb49bc0a658019f53f458e9f5c0b8efcd79b91"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Medium/256-511.pbf",
+   "groesse": 129635,
+   "sha256": "d5e801a1a5b1d409d3298c3a1e1ca76328e2314a751078833a618620e8e66e4d"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Medium/8192-8447.pbf",
+   "groesse": 65101,
+   "sha256": "cc38e4956207f0edba1aaf749b61e8f6f1678ef1ad443d32ee285b21d0eb67aa"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Regular/0-255.pbf",
+   "groesse": 76044,
+   "sha256": "62c6d49b15fa836eb6aa45e259c7ca6762f44b011b09e47776efbe4a6db1b397"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Regular/256-511.pbf",
+   "groesse": 127726,
+   "sha256": "2eca7561f9f566bcacfda5dd04fb5880baec1328ec0f5484678289a13994de8a"
+  },
+  {
+   "pfad": "app/vendor/fonts/Noto Sans Regular/8192-8447.pbf",
+   "groesse": 64220,
+   "sha256": "8ea977a587352fe31b4159ffdbc9a40be79056f2472017c742ea1e4a931864b9"
+  },
+  {
+   "pfad": "app/vendor/maplibre-gl.css",
+   "groesse": 70024,
+   "sha256": "ab1e70d59ec40465bae7e7030da2f3ccf28133fd502e62bd598eefbadfd7a732"
+  },
+  {
+   "pfad": "app/vendor/maplibre-gl.js",
+   "groesse": 1054454,
+   "sha256": "e5b398823af45165124aef0b7e43ade5e1fc28d22807a5646da3ba38b8bfdc55"
+  },
+  {
+   "pfad": "app/vendor/pmtiles.js",
+   "groesse": 20229,
+   "sha256": "caf981bc46f6327ee7e65d5dc964d89d38a69f60edca2bd4c5c890c21b554c6c"
+  },
+  {
+   "pfad": "app/vendor/sprites/dark.json",
+   "groesse": 3549,
+   "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+  },
+  {
+   "pfad": "app/vendor/sprites/dark.png",
+   "groesse": 16054,
+   "sha256": "8920f68e8f9f7a4188da43e62a81bbc426532579fff7b5f27aad09e130f4246e"
+  },
+  {
+   "pfad": "app/vendor/sprites/dark@2x.json",
+   "groesse": 3579,
+   "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+  },
+  {
+   "pfad": "app/vendor/sprites/dark@2x.png",
+   "groesse": 28407,
+   "sha256": "6e01b4e366d304f27bbd55390511a3d4e39aa1d03eb3e82f873f7ea32e74cbe4"
+  },
+  {
+   "pfad": "app/vendor/sprites/light.json",
+   "groesse": 3549,
+   "sha256": "bfac76cf7ed5c2aa2992695904056a1c6b07785b7fd20e6c640cb44fd6244a2e"
+  },
+  {
+   "pfad": "app/vendor/sprites/light.png",
+   "groesse": 16174,
+   "sha256": "b6a34640917bdc57d0bd080836db33376371a3312ebe7b849045268015de3481"
+  },
+  {
+   "pfad": "app/vendor/sprites/light@2x.json",
+   "groesse": 3579,
+   "sha256": "1fb5b123fbe35d2e1f6ac171513ce01df89e671273a417ee89c44886a4c132f0"
+  },
+  {
+   "pfad": "app/vendor/sprites/light@2x.png",
+   "groesse": 28852,
+   "sha256": "23f6e9df27c2e9a14385763980a24e3608966bfc8192a106058bc2ca959ab563"
+  },
+  {
+   "pfad": "icons/icon-180.png",
+   "groesse": 1964,
+   "sha256": "8b03243fe2f915e449bb967908564d0e018a50b14c1c9a4b7b31032dc2f94905"
+  },
+  {
+   "pfad": "icons/icon-192.png",
+   "groesse": 2132,
+   "sha256": "7c648b6334c4a0cbd5aa38d79e6ab89bf76f7f27b072f3057526b6cad5cfee38"
+  },
+  {
+   "pfad": "icons/icon-512.png",
+   "groesse": 6424,
+   "sha256": "fd0106e2346ed0ecef4971620bb2b88412c160208a468d0e22762b632c1b86de"
+  },
+  {
+   "pfad": "icons/icon-maskable-512.png",
+   "groesse": 5445,
+   "sha256": "566c1bd29e864806bab0007c145680ab4fbdc52195cf957789e8a5c918931d3c"
+  },
+  {
+   "pfad": "index.html",
+   "groesse": 432,
+   "sha256": "70dbfb297a8b68d2fed68319ed95948cb1d64be3609672d0b3fc7e27bb7d5f2f"
+  },
+  {
+   "pfad": "manifest.webmanifest",
+   "groesse": 582,
+   "sha256": "707449e9a25ce4f00fc6ed4f24cd7251b51cf328581c321957395736ba98f4e6"
+  },
+  {
+   "pfad": "src/kern/daten.js",
+   "groesse": 2515,
+   "sha256": "6c4ed9489b7f0a404ed936bac70a7d2968716eb575107f9cd34a3aead8f49643"
+  },
+  {
+   "pfad": "src/kern/foerderung.js",
+   "groesse": 9380,
+   "sha256": "17ba17ecae06bb9db3e7c1653153f26157a26e63df25a40d617c67368fc3f03e"
+  }
+ ]
+}

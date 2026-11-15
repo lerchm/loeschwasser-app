@@ -1,0 +1,13 @@
+{
+  "west": 11.3,
+  "south": 47.18,
+  "east": 11.52,
+  "north": 47.33,
+  "spalten": 3322,
+  "zeilen": 3337,
+  "einheit": "dm",
+  "nodata": -32768,
+  "rasterM": 5.0,
+  "quelle": "Digitales Geländemodell Tirol (DGM 5 m), Datenquelle: Land Tirol - data.tirol.gv.at, CC BY 4.0",
+  "stand": "abgerufen 2026-11-12"
+}
